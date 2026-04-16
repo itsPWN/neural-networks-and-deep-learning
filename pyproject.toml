@@ -1,0 +1,38 @@
+[project]
+name = "neural-networks-and-deep-learning"
+version = "1.0.0"
+description = "Exercise code for Neural Networks and Deep Learning by Michael Nielsen"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "scikit-learn>=1.5",
+    "matplotlib>=3.9",
+    "torch>=2.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ipython>=8.0",
+    "jupyter>=1.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint]
+ignore = [
+    "E741",  # ambiguous variable 'l' -- matches book's math notation (Chapter 2)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"exercises/ch6_*.py" = ["F403", "F405"]  # star imports match book's API style
+"src/network3.py" = ["E402"]             # import after device detection is intentional
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.10",
+]

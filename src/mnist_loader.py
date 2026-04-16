@@ -8,13 +8,27 @@ and ``load_data_wrapper``.  In practice, ``load_data_wrapper`` is the
 function usually called by our neural network code.
 """
 
-#### Libraries
-# Standard library
-import cPickle
 import gzip
+import os
+import pickle
+import urllib.request
+import warnings
 
-# Third-party libraries
 import numpy as np
+
+DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
+MNIST_PATH = os.path.join(DATA_DIR, "mnist.pkl.gz")
+MNIST_URL = "https://github.com/mnielsen/neural-networks-and-deep-learning/raw/master/data/mnist.pkl.gz"
+
+
+def ensure_mnist():
+    """Download MNIST data if not present."""
+    if not os.path.exists(MNIST_PATH):
+        os.makedirs(DATA_DIR, exist_ok=True)
+        print(f"Downloading MNIST data to {MNIST_PATH}...")
+        urllib.request.urlretrieve(MNIST_URL, MNIST_PATH)
+        print("Done.")
+
 
 def load_data():
     """Return the MNIST data as a tuple containing the training data,
@@ -39,10 +53,17 @@ def load_data():
     That's done in the wrapper function ``load_data_wrapper()``, see
     below.
     """
-    f = gzip.open('../data/mnist.pkl.gz', 'rb')
-    training_data, validation_data, test_data = cPickle.load(f)
+    ensure_mnist()
+    f = gzip.open(MNIST_PATH, "rb")
+    # encoding='latin1' is needed because this pickle was created with Python 2.
+    # The catch_warnings block suppresses a harmless NumPy 2.4+ warning about
+    # dtype alignment that fires when unpickling the old Python-2-era arrays.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        training_data, validation_data, test_data = pickle.load(f, encoding="latin1")
     f.close()
     return (training_data, validation_data, test_data)
+
 
 def load_data_wrapper():
     """Return a tuple containing ``(training_data, validation_data,
@@ -68,12 +89,13 @@ def load_data_wrapper():
     tr_d, va_d, te_d = load_data()
     training_inputs = [np.reshape(x, (784, 1)) for x in tr_d[0]]
     training_results = [vectorized_result(y) for y in tr_d[1]]
-    training_data = zip(training_inputs, training_results)
+    training_data = list(zip(training_inputs, training_results))
     validation_inputs = [np.reshape(x, (784, 1)) for x in va_d[0]]
-    validation_data = zip(validation_inputs, va_d[1])
+    validation_data = list(zip(validation_inputs, va_d[1]))
     test_inputs = [np.reshape(x, (784, 1)) for x in te_d[0]]
-    test_data = zip(test_inputs, te_d[1])
+    test_data = list(zip(test_inputs, te_d[1]))
     return (training_data, validation_data, test_data)
+
 
 def vectorized_result(j):
     """Return a 10-dimensional unit vector with a 1.0 in the jth
