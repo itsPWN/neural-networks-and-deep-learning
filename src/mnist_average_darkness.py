@@ -17,12 +17,13 @@ Needless to say, this isn't a very good way of recognizing handwritten
 digits!  Still, it's useful to show what sort of performance we get
 from naive ideas."""
 
-#### Libraries
-# Standard library
 from collections import defaultdict
 
-# My libraries
-import mnist_loader
+try:
+    from . import mnist_loader
+except ImportError:
+    import mnist_loader
+
 
 def main():
     training_data, validation_data, test_data = mnist_loader.load_data()
@@ -31,13 +32,16 @@ def main():
     avgs = avg_darknesses(training_data)
     # testing phase: see how many of the test images are classified
     # correctly
-    num_correct = sum(int(guess_digit(image, avgs) == digit)
-                      for image, digit in zip(test_data[0], test_data[1]))
-    print "Baseline classifier using average darkness of image."
-    print "%s of %s values correct." % (num_correct, len(test_data[1]))
+    num_correct = sum(
+        int(guess_digit(image, avgs) == digit)
+        for image, digit in zip(test_data[0], test_data[1])
+    )
+    print("Baseline classifier using average darkness of image.")
+    print("%s of %s values correct." % (num_correct, len(test_data[1])))
+
 
 def avg_darknesses(training_data):
-    """ Return a defaultdict whose keys are the digits 0 through 9.
+    """Return a defaultdict whose keys are the digits 0 through 9.
     For each digit we compute a value which is the average darkness of
     training images containing that digit.  The darkness for any
     particular image is just the sum of the darknesses for each pixel."""
@@ -47,9 +51,10 @@ def avg_darknesses(training_data):
         digit_counts[digit] += 1
         darknesses[digit] += sum(image)
     avgs = defaultdict(float)
-    for digit, n in digit_counts.iteritems():
+    for digit, n in digit_counts.items():
         avgs[digit] = darknesses[digit] / n
     return avgs
+
 
 def guess_digit(image, avgs):
     """Return the digit whose average darkness in the training data is
@@ -57,8 +62,9 @@ def guess_digit(image, avgs):
     assumed to be a defaultdict whose keys are 0...9, and whose values
     are the corresponding average darknesses across the training data."""
     darkness = sum(image)
-    distances = {k: abs(v-darkness) for k, v in avgs.iteritems()}
+    distances = {k: abs(v - darkness) for k, v in avgs.items()}
     return min(distances, key=distances.get)
+
 
 if __name__ == "__main__":
     main()

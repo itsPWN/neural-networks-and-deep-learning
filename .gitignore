@@ -4,5 +4,17 @@
 *.pkl
 *.pyc
 .DS_Store
-loc.py
-src/ec2
+
+# Python
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Data (generated, large)
+data/mnist_expanded.pkl.gz
+
+# IDE / tools
+.vscode/
+.idea/
