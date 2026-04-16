@@ -9,6 +9,7 @@ accuracy (naive baseline) to 99.6% accuracy (deep convolutional network),
 step by step.
 
 **What you need:** Basic Python, some high-school math. No ML experience.
+See [PREREQUISITES.md](PREREQUISITES.md) for a detailed checklist and recommended resources.
 
 **Works fully offline** -- the book, dataset, and all dependencies are included.
 
@@ -33,6 +34,7 @@ accuracy in under a minute.
 | | What | Description |
 |---|------|-------------|
 | **[TUTORIAL.md](TUTORIAL.md)** | **Step-by-step learning path** | **Start here.** Read a chapter, run exercises, repeat. |
+| [PREREQUISITES.md](PREREQUISITES.md) | Math & Python prerequisites | What to know (or brush up on) before starting |
 | [exercises/](exercises/) | Runnable exercise scripts | One script per exercise -- run, read, modify |
 | [book/](book/) | The full book (offline) | All 6 chapters as HTML -- open in any browser |
 | [src/](src/) | The code | Three neural networks of increasing sophistication |
