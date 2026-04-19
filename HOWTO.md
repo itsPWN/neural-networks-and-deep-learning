@@ -21,7 +21,7 @@ The full book is available offline in the [`book/`](book/) directory.
 
 ### 2. Clone and set up
 
-    git clone <repo-url>
+    git clone https://github.com/itsPWN/neural-networks-and-deep-learning.git
     cd neural-networks-and-deep-learning
     uv sync
 
