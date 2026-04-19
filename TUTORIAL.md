@@ -20,7 +20,7 @@ Before you start, install the project so you can run the exercises:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # 2. Clone and install everything
-git clone <repo-url>
+git clone https://github.com/itsPWN/neural-networks-and-deep-learning.git
 cd neural-networks-and-deep-learning
 uv sync
 
