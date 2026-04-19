@@ -20,7 +20,7 @@ See [PREREQUISITES.md](PREREQUISITES.md) for a detailed checklist and recommende
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Clone, install, and train your first neural network
-git clone <repo-url>
+git clone https://github.com/itsPWN/neural-networks-and-deep-learning.git
 cd neural-networks-and-deep-learning
 uv sync
 uv run python exercises/ch1_basic_network.py
