@@ -125,6 +125,10 @@ You don't need a full course. Neural networks use a small but essential slice of
 - **What they are** — a 2D grid of numbers with rows and columns. A weight matrix connects one layer to the next. If layer 1 has 784 neurons and layer 2 has 30, the weight matrix is 30 rows x 784 columns
 - **Dimensions** — always described as (rows x columns). A 30x784 matrix has 30 rows and 784 columns = 23,520 individual weights
 
+### Dot Product
+- **What it is** — multiply matching elements, then add them up: `[a, b, c] · [d, e, f] = a*d + b*e + c*f`. The result is a single number
+- **Why it matters** — a single neuron computes a dot product: `output = sigmoid(weights · inputs + bias)`. Every "score" a neuron produces is one dot product. Matrix-vector multiplication (next section) is just doing many dot products at once — one per row of the matrix
+
 ### Matrix-Vector Multiplication
 - **How it works** — each row of the matrix is "dotted" with the input vector (multiply corresponding elements, then sum) to produce one output number. A 30x784 matrix times a 784x1 vector gives a 30x1 vector
 - **Dimension rule** — the inner dimensions must match: (30x**784**) times (**784**x1) works. (30x784) times (30x1) does not
@@ -138,6 +142,10 @@ You don't need a full course. Neural networks use a small but essential slice of
 - **L2 norm** — the "length" of a vector: square each element, sum them, take the square root. `||[3, 4]|| = sqrt(9 + 16) = 5`
 - **L1 norm** — sum of absolute values: `|3| + |4| = 7`
 - **Why this matters** — L1 and L2 regularization penalize large weights by adding the norm of the weight vector to the cost function
+
+### Tensors (N-Dimensional Arrays)
+- **What they are** — a generalization of vectors (1D) and matrices (2D) to any number of dimensions. A 3D tensor is a stack of matrices; a 4D tensor is a stack of stacks
+- **Why this matters for Chapter 6** — a single MNIST image is a 28×28 matrix, but PyTorch processes images in *batches* with a *channel* dimension, so the input shape becomes `(batch_size, channels, height, width)` — a 4D tensor. A batch of 10 grayscale 28×28 digits has shape `(10, 1, 28, 28)`. You don't manipulate these by hand; PyTorch handles them. Recognizing the shape just saves confusion when you see `image_shape=(10, 1, 28, 28)` in the code
 
 ### Where it's used
 - `src/network.py:36` — feedforward: `np.dot(w, a) + b` multiplies weight matrix by activation vector
@@ -250,6 +258,26 @@ If your math is rusty, here's a focused path (not everything — just what matte
 | **Should** | Normal distribution & variance | Khan Academy Stats or Seeing Theory |
 | **Nice** | Python classes & zip/tuples | Python official tutorial (Chapters 5 & 9) |
 | **Later** | PyTorch basics | PyTorch 60-Minute Blitz (before Chapter 6) |
+
+---
+
+## What Each Chapter Needs
+
+You don't have to master everything before starting. Here's what each
+chapter actually uses, so you can brush up just-in-time:
+
+| Chapter | Math you'll need | Python/Library | New concepts the chapter introduces |
+|---------|------------------|----------------|-------------------------------------|
+| Ch 1: First network | Sigmoid (eˣ), dot product, gradient descent intuition | NumPy basics, Python classes | Neurons, layers, SGD, MNIST loading |
+| Ch 2: Backpropagation | Chain rule, partial derivatives, matrix transpose | (just reading code) | The four BP equations |
+| Ch 3: Improvements | ln(x), L1/L2 norms, variance | NumPy: `np.argmax`, `np.linalg.norm` | Cross-entropy, regularization, weight init, momentum |
+| Ch 4: Universal approximation | (none — visual demos only) | (none) | Why neural nets can fit any function |
+| Ch 5: Vanishing gradients | σ′(z) ≤ 0.25 (matters when the chain rule multiplies many of them) | (same as Ch 1-3) | Why deep networks were historically hard |
+| Ch 6: Deep CNNs | 4D tensors, softmax, dropout (probability) | PyTorch basics (`nn.Module`, optimizer, `F.nll_loss`) | Convolution, pooling, ReLU, deep architecture |
+
+If a chapter introduces a concept you haven't seen, the book explains
+it — you don't need to pre-learn it. The "Math you'll need" column is
+the *foundation* the explanation builds on.
 
 ---
 
