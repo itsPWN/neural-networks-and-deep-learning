@@ -586,8 +586,8 @@ uv run python exercises/ch1_average_darkness.py         # Naive baseline (22%)
 uv run python exercises/ch1_no_hidden_layer.py          # No hidden layer (~88-92%)
 
 # Chapter 3
-uv run python exercises/ch3_cross_entropy.py            # Cross-entropy cost (~96.5%)
-uv run python exercises/ch3_quadratic_cost.py           # Quadratic cost (~95%)
+uv run python exercises/ch3_cross_entropy.py            # Cross-entropy cost (~95.49%)
+uv run python exercises/ch3_quadratic_cost.py           # Quadratic cost (~95.42%)
 uv run python exercises/ch3_weight_init.py              # Good vs bad initialization
 uv run python exercises/ch3_learning_rate.py            # Too small / just right / too large
 uv run python exercises/ch3_overfitting.py              # Overfitting on small data
