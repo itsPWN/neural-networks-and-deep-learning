@@ -157,14 +157,27 @@ computes which weights to change. The key insight: instead of testing each
 weight individually (impossibly slow), backpropagation efficiently computes
 all the gradients in one backward pass through the network.
 
-### Exercise 2.1: Read the code
+### Exercise 2.1: Map the four equations to the code
 
-Open `src/network.py` and find the `backprop` method (around line 85). Read
-it alongside Section "The code for backpropagation" in Chapter 2. Try to
-match each line of code to the equations in the book.
+The book's Chapter 2 introduces four backpropagation equations (BP1-BP4).
+The `backprop` method in `src/network.py` is a direct translation -- about
+20 lines of code, one to one with the math. Open
+[src/network.py:84-116](src/network.py#L84-L116) next to the book's
+"The code for backpropagation" section and use this map:
 
-No need to run anything -- this is a reading exercise. The code is short
-(~20 lines) and directly implements the four equations.
+| Equation | Plain English | Line in `network.py` |
+|----------|---------------|----------------------|
+| **BP1**: δᴸ = ∇ₐC ⊙ σ′(zᴸ) | Output-layer error: how wrong each output neuron is, scaled by how sensitive sigmoid is at that point | [101](src/network.py#L101) |
+| **BP2**: δˡ = ((wˡ⁺¹)ᵀ δˡ⁺¹) ⊙ σ′(zˡ) | Propagate error one layer back: push the next layer's error backward through the transposed weights, scale by this layer's sensitivity | [113](src/network.py#L113) |
+| **BP3**: ∂C/∂bˡ = δˡ | The bias gradient *is* the error -- no extra math needed | [102, 114](src/network.py#L102) |
+| **BP4**: ∂C/∂wˡ = δˡ (aˡ⁻¹)ᵀ | The weight gradient is the error times the previous layer's activation | [103, 115](src/network.py#L103) |
+
+**Don't worry if:** The notation feels overwhelming. Focus on BP1 first --
+it's just "how wrong is the output, scaled by the slope of sigmoid". BP2
+is the same idea applied to hidden layers. BP3 and BP4 are bookkeeping:
+once you know the error δ at each layer, you already have the gradients.
+
+No need to run anything -- this is a reading exercise.
 
 ### Checkpoint
 
