@@ -52,8 +52,8 @@ hidden layer size (30), learning rate (3.0), or number of epochs (30).
 
 ### Chapter 3: Improving the way neural networks learn
 
-    uv run python exercises/ch3_cross_entropy.py            # ~96.5%+ accuracy
-    uv run python exercises/ch3_quadratic_cost.py           # ~95% (worse -- shows why cross-entropy wins)
+    uv run python exercises/ch3_cross_entropy.py            # ~95.49% accuracy (cross-entropy alone, no regularization)
+    uv run python exercises/ch3_quadratic_cost.py           # ~95.42% (similar -- cross-entropy's edge shows in early-epoch speed)
     uv run python exercises/ch3_weight_init.py              # Good vs bad initialization
     uv run python exercises/ch3_learning_rate.py            # Too small / just right / too large
     uv run python exercises/ch3_overfitting.py              # Overfitting on small data
@@ -97,6 +97,23 @@ The `plots/` directory contains scripts that generate the plots from the book.
 
     # Gradient magnitude across layers (Chapter 5)
     uv run python plots/backprop_magnitude_nabla.py
+
+    # MNIST sample digits (Chapter 1)
+    uv run python plots/mnist.py
+
+    # Generic valley function -- gradient descent illustration (Chapter 1)
+    uv run python plots/valley.py
+    uv run python plots/valley2.py            # same surface, no axis labels
+
+    # A function with many false minima (Chapter 1, gradient descent intuition)
+    uv run python plots/false_minima.py
+
+    # Functions where a naive gradient is misleading (Chapter 1)
+    uv run python plots/misleading_gradient.py
+    uv run python plots/misleading_gradient_contours.py
+
+    # Limitations of PCA (referenced from the book's discussion of dimensionality reduction)
+    uv run python plots/pca_limitations.py
 
 Note: some plots/ scripts are interactive and prompt for parameters.
 
